@@ -93,7 +93,7 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
@@ -112,9 +112,10 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__grid_grid_component__ = __webpack_require__("../../../../../src/app/grid/grid.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__grid_item_window_ref_service__ = __webpack_require__("../../../../../src/app/grid-item/window-ref.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__grid_grid_component__ = __webpack_require__("../../../../../src/app/grid/grid.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__grid_item_window_ref_service__ = __webpack_require__("../../../../../src/app/grid-item/window-ref.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -122,6 +123,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -137,17 +139,18 @@ var AppModule = (function () {
 AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_5__grid_grid_component__["a" /* GridComponent */]
+            __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_6__grid_grid_component__["a" /* GridComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* JsonpModule */]
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* JsonpModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_6__grid_item_window_ref_service__["a" /* WindowRefService */]],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_7__grid_item_window_ref_service__["a" /* WindowRefService */]],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
 
@@ -231,13 +234,15 @@ var ConnectrService = (function () {
         gridItem.message = cnctrMsg.title;
         gridItem.tags = cnctrMsg.tags.split(','); //comma separated tags to array
         gridItem.createTitle(cnctrMsg.title);
-        if (cnctrMsg.urls[0].indexOf('.jpg') >= 0
-            || cnctrMsg.urls[0].indexOf('.JPG') >= 0
-            || cnctrMsg.urls[0].indexOf('.png') >= 0
-            || cnctrMsg.urls[0].indexOf('.PNG') >= 0)
-            gridItem.photoUrl = cnctrMsg.urls[0];
-        else
-            gridItem.videoUrl = cnctrMsg.urls[0];
+        if (cnctrMsg.urls[0] != null) {
+            if (cnctrMsg.urls[0].indexOf('.jpg') >= 0
+                || cnctrMsg.urls[0].indexOf('.JPG') >= 0
+                || cnctrMsg.urls[0].indexOf('.png') >= 0
+                || cnctrMsg.urls[0].indexOf('.PNG') >= 0)
+                gridItem.photoUrl = cnctrMsg.urls[0];
+            else
+                gridItem.videoUrl = cnctrMsg.urls[0];
+        }
         return gridItem;
     };
     return ConnectrService;
@@ -350,7 +355,8 @@ var FbService = (function () {
             gridItem.linkCaption = fbPost.caption;
             gridItem.linkDescription = fbPost.description;
             gridItem.linkName = fbPost.name;
-            this.getLinkPhotoUrl(gridItem.linkUrl).subscribe(function (photoUrl) {
+            this.getLinkPhotoUrl(gridItem.linkUrl).subscribe(//Hämta foto som tillhör länk
+            function (photoUrl) {
                 gridItem.photoUrl = photoUrl;
             });
         }
@@ -362,6 +368,7 @@ var FbService = (function () {
         }
         else if (fbPost.type == "video") {
             gridItem.videoUrl = fbPost.source;
+            //console.log(fbPost.source);                             //hantera ej vimeo-länkar
         }
         return gridItem;
     };
@@ -401,7 +408,7 @@ var GridItemService = (function () {
     }
     GridItemService.prototype.setPadding = function () {
         var height = this._window.screen.height;
-        var windth = this._window.screen.width;
+        var width = this._window.screen.width;
         var itemsIncolumn = [];
         var inColumn = true;
         while (inColumn) {
@@ -465,25 +472,25 @@ var GridItem = (function () {
         else {
             var trimmedString = void 0, titleEnd = void 0;
             trimmedString = message.substr(0, __WEBPACK_IMPORTED_MODULE_0__app_settings__["a" /* AppSettings */].MAXLENGTH);
-            console.log(trimmedString);
+            //console.log(trimmedString);
             if (trimmedString.length < 55) {
                 titleEnd = trimmedString.length;
             }
             else if (trimmedString.indexOf(". ") > -1) {
                 titleEnd = trimmedString.lastIndexOf(".");
-                console.log("has .");
+                //console.log("has .");
             }
             else if (trimmedString.indexOf("!") > -1) {
                 titleEnd = trimmedString.lastIndexOf("!");
-                console.log("has !");
+                //console.log("has !");
             }
             else if (trimmedString.indexOf("?") > -1) {
                 titleEnd = trimmedString.lastIndexOf("?");
-                console.log("has ?");
+                //console.log("has ?");
             }
             else if (trimmedString.indexOf("\n") > -1) {
                 titleEnd = trimmedString.lastIndexOf("\n");
-                console.log("has linebreak");
+                //console.log("has linebreak");
             }
             else {
                 titleEnd = Math.min(trimmedString.length, trimmedString.lastIndexOf(" "));
@@ -543,7 +550,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat:light|Droid+Serif);", ""]);
 
 // module
-exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 1px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n  margin: 0 auto;\r\n  height: 120vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n}\r\n\r\n#qr-item{\r\n   background-color: white;\r\n   color: black;\r\n   font-size: x-large;\r\n   text-align: center;\r\n}\r\n\r\n.item {   \r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;\r\n  padding-bottom: 20px;                   /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n  color: white;\r\n}\r\nh3{\r\n  text-transform: uppercase;\r\n}\r\n.photo-item{\r\n    max-width: 100%;\r\n\r\n}\r\n\r\n.video-item{\r\n  max-width: 100%\r\n}\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n}\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n\r\n.mockup-item:nth-child(7) {\r\n  height: 190px;\r\n}\r\n\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n\r\n.mockup-item:nth-child(9) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(10) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n\r\n.mockup-item:nth-child(15) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n\r\n.mockup-item:nth-child(17) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
+exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 1px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n  margin: 0 auto;\r\n  height: 120vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n}\r\n\r\n\r\n\r\n#qr-item{\r\n  background-color: white;\r\n  color: black;\r\n  font-size: x-large;\r\n  text-align: center;\r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                         /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n\r\n}\r\n\r\n.item {   \r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                          /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n  color: white;\r\n}\r\nh3{\r\n  text-transform: uppercase;\r\n}\r\n.photo-item{\r\n    max-width: 100%;\r\n\r\n}\r\n\r\n.video-item{\r\n  max-width: 100%\r\n}\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n}\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n\r\n.mockup-item:nth-child(7) {\r\n  height: 190px;\r\n}\r\n\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n\r\n.mockup-item:nth-child(9) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(10) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n\r\n.mockup-item:nth-child(15) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n\r\n.mockup-item:nth-child(17) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
 
 // exports
 
@@ -556,7 +563,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/grid/grid.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n\n  <!-- loop video  \n  <div class=\"item\">\n    <video controls=\"\" autoplay=\"\" loop=\"\" name=\"media\"><source src=\"https://video.xx.fbcdn.net/v/t42.1790-2/19134872_238388839984336_7702567883057922048_n.mp4?efg=eyJybHIiOjMzNCwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoic3ZlX3NkIn0=&amp;rl=334&amp;vabr=186&amp;oh=708c6e109c250c775f6bfec77bfd0d3c&amp;oe=594BA650\" type=\"video/mp4\"></video>\n  </div>\n  -->\n  <!--<div class=\"item\" *ngFor=\"let fbItem of fbItems\">\n    {{fbItem.message}}\n  </div>\n  <div class=\"item\" *ngFor=\"let instaItem of instaItems\"> <img class=\"photo-item\" [src]=\"instaItem.images.standard_resolution.url\">\n    {{instaItem.caption.text}}\n  </div>\n  <div class=\"item\" *ngFor=\"let cnctrItem of cnctrItems\"><img class=\"photo-item\" [src]=\"cnctrItem.urls[0]\">\n    {{cnctrItem.title}}\n  </div>-->\n\n  <div id=\"qr-item\" class=\"item\">\n    <img class=\"photo-item\"  src=\"assets/qrcode.png\">\n    <h3>Gör ett inlägg!</h3>\n  </div>\n\n  <div class=\"item\" *ngFor=\"let gItem of gItems\" [style.background-color]=\"gItem.color[0]\">\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">\n    <video class=\"video-item\" autoplay=\"\" loop=\"\" muted=\"\" *ngIf=\"gItem.videoUrl\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>\n    <p [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n  </div>\n\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n</div>"
+module.exports = "<div class=\"container\" [@gridAnimation]=\"gItems.length\" #mainScreen>\n\n  <!-- loop video  \n  <div class=\"item\">\n    <video controls=\"\" autoplay=\"\" loop=\"\" name=\"media\"><source src=\"https://video.xx.fbcdn.net/v/t42.1790-2/19134872_238388839984336_7702567883057922048_n.mp4?efg=eyJybHIiOjMzNCwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoic3ZlX3NkIn0=&amp;rl=334&amp;vabr=186&amp;oh=708c6e109c250c775f6bfec77bfd0d3c&amp;oe=594BA650\" type=\"video/mp4\"></video>\n  </div>\n  -->\n  <!--<div class=\"item\" *ngFor=\"let fbItem of fbItems\">\n    {{fbItem.message}}\n  </div>\n  <div class=\"item\" *ngFor=\"let instaItem of instaItems\"> <img class=\"photo-item\" [src]=\"instaItem.images.standard_resolution.url\">\n    {{instaItem.caption.text}}\n  </div>\n  <div class=\"item\" *ngFor=\"let cnctrItem of cnctrItems\"><img class=\"photo-item\" [src]=\"cnctrItem.urls[0]\">\n    {{cnctrItem.title}}\n  </div>-->\n\n  <div id=\"qr-item\">\n    <img class=\"photo-item\"  src=\"assets/qrcode.png\">\n    <h3>Gör ett inlägg!</h3>\n  </div>\n\n  <div class=\"item\" *ngFor=\"let gItem of gItems\" [style.background-color]=\"gItem.color[0]\">\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">\n\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n\n    <video class=\"video-item\" autoplay=\"\" loop=\"\" muted=\"\" *ngIf=\"gItem.videoUrl\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n  \n    <h3 [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>\n    <p [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
 
 /***/ }),
 
@@ -571,6 +578,7 @@ module.exports = "<div class=\"container\">\n\n  <!-- loop video  \n  <div class
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__grid_item_grid_item_service__ = __webpack_require__("../../../../../src/app/grid-item/grid-item.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_animations__ = __webpack_require__("../../../animations/@angular/animations.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GridComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -587,6 +595,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var GridComponent = (function () {
     function GridComponent(cnctrService, instaService, fbService, giService) {
         this.cnctrService = cnctrService;
@@ -594,14 +603,20 @@ var GridComponent = (function () {
         this.fbService = fbService;
         this.giService = giService;
         this.gItems = [];
+        this.items = [];
     }
     GridComponent.prototype.ngOnInit = function () {
         this.getGridItems();
-        this.giService.setPadding();
+        //this.giService.setPadding();      påbörjad funktion, vet inte vad jag tänkte
+    };
+    GridComponent.prototype.ngAfterViewInit = function () {
+        //console.log("afterViewInit");
+    };
+    GridComponent.prototype.ngAfterViewChecked = function () {
+        //console.log("afterviewchecked");
     };
     GridComponent.prototype.getGridItems = function () {
         var _this = this;
-        var gridItems;
         __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["Observable"].forkJoin(this.cnctrService.getItems(), this.instaService.getItems(), this.fbService.getItems()).subscribe(function (steps) {
             _this.gItems = _this.gItems
                 .concat(steps[0])
@@ -611,13 +626,33 @@ var GridComponent = (function () {
             _this.gItems.sort(function (a, b) { return new Date(b.date).getTime() - new Date(a.date).getTime(); });
         }, function (err) { return console.error(err); });
     };
+    GridComponent.prototype.adjustPadding = function () {
+        document.getElementById("qr-item").style.color = "red";
+    };
     return GridComponent;
 }());
 GridComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
         selector: 'app-grid',
         template: __webpack_require__("../../../../../src/app/grid/grid.component.html"),
         styles: [__webpack_require__("../../../../../src/app/grid/grid.component.css")],
+        animations: [
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["i" /* trigger */])('gridAnimation', [
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["j" /* transition */])('* => *', [
+                    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["k" /* query */])(':enter', [
+                        //flygandes nerifrån och upp
+                        // style({transform: 'translateY(+500%)'}),
+                        // stagger(300, [
+                        //   animate('0.5s', style({transform: 'translateY(0%)'}))
+                        // ])
+                        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["h" /* style */])({ transform: 'rotateX(-90deg)' }),
+                        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["l" /* stagger */])(300, [
+                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["m" /* animate */])('0.5s', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__angular_animations__["h" /* style */])({ transform: 'rotateX(0deg)' }))
+                        ])
+                    ], { optional: true })
+                ])
+            ])
+        ],
         providers: [__WEBPACK_IMPORTED_MODULE_4__grid_item_grid_item_service__["a" /* GridItemService */], __WEBPACK_IMPORTED_MODULE_1__connectr_connectr_service__["a" /* ConnectrService */], __WEBPACK_IMPORTED_MODULE_2__insta_insta_service__["a" /* InstaService */], __WEBPACK_IMPORTED_MODULE_3__fb_fb_service__["a" /* FbService */]]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__connectr_connectr_service__["a" /* ConnectrService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__connectr_connectr_service__["a" /* ConnectrService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__insta_insta_service__["a" /* InstaService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__insta_insta_service__["a" /* InstaService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__fb_fb_service__["a" /* FbService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__fb_fb_service__["a" /* FbService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__grid_item_grid_item_service__["a" /* GridItemService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__grid_item_grid_item_service__["a" /* GridItemService */]) === "function" && _d || Object])

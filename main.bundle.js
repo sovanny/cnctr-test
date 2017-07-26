@@ -204,7 +204,7 @@ var ConnectrService = (function () {
                 var entry = items_1[_i];
                 cnctrGridItems.push(_this.formatCrItem(entry));
             }
-            console.log(cnctrGridItems);
+            //console.log(cnctrGridItems);
             return cnctrGridItems; //return grid-items (observable)
         })
             .catch(this.handleError);
@@ -303,7 +303,7 @@ var FbService = (function () {
                 var entry = items_1[_i];
                 cnctrGridItems.push(_this.formatFbItem(entry));
             }
-            console.log(cnctrGridItems);
+            //console.log(cnctrGridItems);
             return cnctrGridItems; //return grid-items (observable)
         })
             .catch(this.handleError);
@@ -437,6 +437,8 @@ var _a;
 
 var GridItem = (function () {
     function GridItem() {
+    }
+    GridItem.prototype.setRandomColor = function () {
         var selectColor = [
             //Starka färger
             ['#662C3E', '#ff5000', '#fffff'],
@@ -461,7 +463,7 @@ var GridItem = (function () {
           ];*/
         var numberOfColors = selectColor.length;
         this.color = selectColor[Math.floor(Math.random() * numberOfColors)];
-    }
+    };
     GridItem.prototype.createTitle = function (msg) {
         var message, title;
         message = msg;
@@ -550,7 +552,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat:light|Droid+Serif);", ""]);
 
 // module
-exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 1px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n  margin: 0 auto;\r\n  height: 120vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n}\r\n\r\n\r\n\r\n#qr-item{\r\n  background-color: white;\r\n  color: black;\r\n  font-size: x-large;\r\n  text-align: center;\r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                         /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n\r\n}\r\n\r\n.item {   \r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                          /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n  color: white;\r\n}\r\nh3{\r\n  text-transform: uppercase;\r\n}\r\n.photo-item{\r\n    max-width: 100%;\r\n\r\n}\r\n\r\n.video-item{\r\n  max-width: 100%\r\n}\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n}\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n\r\n.mockup-item:nth-child(7) {\r\n  height: 190px;\r\n}\r\n\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n\r\n.mockup-item:nth-child(9) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(10) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n\r\n.mockup-item:nth-child(15) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n\r\n.mockup-item:nth-child(17) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
+exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 1px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n  margin: 0 auto;\r\n  height: 120vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n}\r\n#qr-item{\r\n  background-color: white;\r\n  color: black;\r\n  font-size: x-large;\r\n  text-align: center;\r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                         /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n\r\n}\r\n.item {   \r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                          /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n  color: white;\r\n}\r\nh3{\r\n  text-transform: uppercase;\r\n}\r\n.photo-item{\r\n    max-width: 100%;\r\n}\r\n.video-item{\r\n  max-width: 100%\r\n}\r\n\r\n\r\n\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
 
 // exports
 
@@ -563,7 +565,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/grid/grid.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" [@gridAnimation]=\"gItems.length\" #mainScreen>\n\n  <!-- loop video  \n  <div class=\"item\">\n    <video controls=\"\" autoplay=\"\" loop=\"\" name=\"media\"><source src=\"https://video.xx.fbcdn.net/v/t42.1790-2/19134872_238388839984336_7702567883057922048_n.mp4?efg=eyJybHIiOjMzNCwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoic3ZlX3NkIn0=&amp;rl=334&amp;vabr=186&amp;oh=708c6e109c250c775f6bfec77bfd0d3c&amp;oe=594BA650\" type=\"video/mp4\"></video>\n  </div>\n  -->\n  <!--<div class=\"item\" *ngFor=\"let fbItem of fbItems\">\n    {{fbItem.message}}\n  </div>\n  <div class=\"item\" *ngFor=\"let instaItem of instaItems\"> <img class=\"photo-item\" [src]=\"instaItem.images.standard_resolution.url\">\n    {{instaItem.caption.text}}\n  </div>\n  <div class=\"item\" *ngFor=\"let cnctrItem of cnctrItems\"><img class=\"photo-item\" [src]=\"cnctrItem.urls[0]\">\n    {{cnctrItem.title}}\n  </div>-->\n\n  <div id=\"qr-item\">\n    <img class=\"photo-item\"  src=\"assets/qrcode.png\">\n    <h3>Gör ett inlägg!</h3>\n  </div>\n\n  <div class=\"item\" *ngFor=\"let gItem of gItems\" [style.background-color]=\"gItem.color[0]\">\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">\n\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n\n    <video class=\"video-item\" autoplay=\"\" loop=\"\" muted=\"\" *ngIf=\"gItem.videoUrl\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n  \n    <h3 [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>\n    <p [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>\n  <div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
+module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n\n  <div id=\"qr-item\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    <h3>Gör ett inlägg!</h3>\n  </div>\n\n  <div class=\"item\" *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\">\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\" autoplay=\"\" loop=\"\" muted=\"\" *ngIf=\"gItem.videoUrl\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>\n    <p [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
 
 /***/ }),
 
@@ -602,12 +604,14 @@ var GridComponent = (function () {
         this.instaService = instaService;
         this.fbService = fbService;
         this.giService = giService;
-        this.gItems = [];
-        this.items = [];
+        this.gItemsCurrent = [];
+        this.gItemsNew = [];
     }
     GridComponent.prototype.ngOnInit = function () {
-        this.getGridItems();
-        //this.giService.setPadding();      påbörjad funktion, vet inte vad jag tänkte
+        var _this = this;
+        var timer = __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["Observable"].timer(2000, 15000);
+        timer.subscribe(function () { return _this.getGridItems(); }); //kolla efter ny data var 15:e sekund
+        //this.giService.setPadding();                   påbörjad funktion, vet inte vad jag tänkte
     };
     GridComponent.prototype.ngAfterViewInit = function () {
         //console.log("afterViewInit");
@@ -617,17 +621,29 @@ var GridComponent = (function () {
     };
     GridComponent.prototype.getGridItems = function () {
         var _this = this;
-        __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["Observable"].forkJoin(this.cnctrService.getItems(), this.instaService.getItems(), this.fbService.getItems()).subscribe(function (steps) {
-            _this.gItems = _this.gItems
-                .concat(steps[0])
-                .concat(steps[1])
-                .concat(steps[2]);
-            console.log(_this.gItems);
-            _this.gItems.sort(function (a, b) { return new Date(b.date).getTime() - new Date(a.date).getTime(); });
+        __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["Observable"].forkJoin(this.cnctrService.getItems(), this.fbService.getItems(), this.instaService.getItems())
+            .subscribe(function (res) {
+            _this.gItemsNew = _this.gItemsNew
+                .concat(res[0])
+                .concat(res[1])
+                .concat(res[2]); //lägg ihop resultatet från de olika källorna
+            _this.gItemsNew.sort(function (a, b) { return new Date(b.date).getTime() - new Date(a.date).getTime(); });
+            if (_this.gItemsCurrent.length == 0) {
+                _this.gItemsCurrent = _this.gItemsNew;
+                for (var _i = 0, _a = _this.gItemsCurrent; _i < _a.length; _i++) {
+                    var i = _a[_i];
+                    i.setRandomColor();
+                }
+            }
+            else if (_this.gItemsCurrent[0].date.getTime() != _this.gItemsNew[0].date.getTime()) {
+                _this.gItemsCurrent = _this.gItemsNew;
+                for (var _b = 0, _c = _this.gItemsCurrent; _b < _c.length; _b++) {
+                    var i = _c[_b];
+                    i.setRandomColor();
+                }
+            }
+            _this.gItemsNew = [];
         }, function (err) { return console.error(err); });
-    };
-    GridComponent.prototype.adjustPadding = function () {
-        document.getElementById("qr-item").style.color = "red";
     };
     return GridComponent;
 }());
@@ -709,7 +725,7 @@ var InstaService = (function () {
                 var entry = items_1[_i];
                 gridItems.push(_this.formatInstaItem(entry));
             }
-            console.log(gridItems);
+            //console.log(gridItems);
             return gridItems; //return grid-items (observable)
         });
         /* .catch(this.handleError); funkar ej */

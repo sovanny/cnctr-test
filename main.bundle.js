@@ -44,7 +44,8 @@ AppSettings.FB_FIELDS = 'created_time,message,link,caption,description,name,plac
 AppSettings.FB_API = 'https://graph.facebook.com/v2.9/168933561226/posts?fields='
     + AppSettings.FB_FIELDS + '&access_token=' + AppSettings.FB_TOKEN;
 //maxlängd på titel i ett item
-AppSettings.MAXLENGTH = 55;
+AppSettings.MAXLENGTH_TITLE = 55;
+AppSettings.MAXLENGTH_MSG = 220;
 //# sourceMappingURL=app-settings.js.map
 
 /***/ }),
@@ -204,7 +205,7 @@ var ConnectrService = (function () {
                 var entry = items_1[_i];
                 cnctrGridItems.push(_this.formatCrItem(entry));
             }
-            //console.log(cnctrGridItems);
+            console.log(cnctrGridItems);
             return cnctrGridItems; //return grid-items (observable)
         })
             .catch(this.handleError);
@@ -231,7 +232,6 @@ var ConnectrService = (function () {
         var gridItem = new __WEBPACK_IMPORTED_MODULE_6__grid_item_grid_item__["a" /* GridItem */]();
         gridItem.type = 'Connectr';
         gridItem.date = new Date(cnctrMsg.createdDate);
-        gridItem.message = cnctrMsg.title;
         gridItem.tags = cnctrMsg.tags.split(','); //comma separated tags to array
         gridItem.createTitle(cnctrMsg.title);
         if (cnctrMsg.urls[0] != null) {
@@ -347,10 +347,10 @@ var FbService = (function () {
     };
     FbService.prototype.formatFbItem = function (fbPost) {
         var gridItem = new __WEBPACK_IMPORTED_MODULE_6__grid_item_grid_item__["a" /* GridItem */]();
+        gridItem.type = "Facebook";
         gridItem.date = new Date(fbPost.created_time);
         gridItem.createTitle(fbPost.message);
         if (fbPost.type == "link") {
-            gridItem.type = 'FacebookLink';
             gridItem.linkUrl = fbPost.link;
             gridItem.linkCaption = fbPost.caption;
             gridItem.linkDescription = fbPost.description;
@@ -440,25 +440,32 @@ var GridItem = (function () {
     }
     GridItem.prototype.setRandomColor = function () {
         var selectColor = [
-            //Starka färger
-            ['#662C3E', '#ff5000', '#fffff'],
-            ['#11376E', '#0fd8c5', '#fffff'],
-            ['#00615D', '#00eb67', '#fffff'],
-            ['#60237b', '#ff36b8', '#fffff'],
-            ['#FFFFFF', '#000000', '#000000'],
+            //Starka färger + svagare
+            ['#662C3E', '#ff5000', '#fffff', '#ffcab3'],
+            ['#11376E', '#0fd8c5', '#fffff', '#b7f3ed'],
+            ['#00615D', '#00eb67', '#fffff', '#b3f9d1'],
+            ['#60237b', '#ff36b8', '#fffff', '#ffc3e9'],
+            ['#FFFFFF', '#000000', '#000000', '#808080'],
         ];
-        //svaga färger
-        /*['#B2959E', '#FFA780', '#fffff'], //vinröd
-        ['#587399', '#87EBE2', '#fffff'],      //mörkblå
-        ['#4D908D', '#80F5B3', '#fffff'],     //blågrön
-        ['#CFBDD7', '#FF9ADB', '#fffff'],       //lila
-        ['#FFFFFF', '#000000', '#000000'],       //vit
-        ];*/
         //medelstarka färger
-        /*  ['#946B78', '#FFA780', '#fffff'], //vinröd
+        /*['#946B78', '#FFA780', '#fffff'], //vinröd
           ['#587399', '#87EBE2', '#fffff'],      //mörkblå
           ['#00615D', '#80F5B3', '#fffff'],     //blågrön
           ['#9065A2', '#FF9ADB', '#fffff'],       //lila
+          ['#FFFFFF', '#000000', '#000000'],       //vit
+          ];*/
+        //svaga färger
+        /*  ['#B2959E', '#FFA780', '#fffff'], //vinröd
+            ['#587399', '#87EBE2', '#fffff'],      //mörkblå
+            ['#4D908D', '#80F5B3', '#fffff'],     //blågrön
+            ['#CFBDD7', '#FF9ADB', '#fffff'],       //lila
+            ['#FFFFFF', '#000000', '#000000'],       //vit
+        ];*/
+        //svagare färger
+        /*['#d1c0c5', '#ffcab3', '#fffff'], //vinröd
+          ['#b8c3d3', '#b7f3ed', '#fffff'],      //mörkblå
+          ['#b3cfce', '#b3f9d1', '#fffff'],     //blågrön
+          ['#cfbdd7', '#ffc3e9', '#fffff'],       //lila
           ['#FFFFFF', '#000000', '#000000'],       //vit
           ];*/
         var numberOfColors = selectColor.length;
@@ -473,7 +480,7 @@ var GridItem = (function () {
         }
         else {
             var trimmedString = void 0, titleEnd = void 0;
-            trimmedString = message.substr(0, __WEBPACK_IMPORTED_MODULE_0__app_settings__["a" /* AppSettings */].MAXLENGTH);
+            trimmedString = message.substr(0, __WEBPACK_IMPORTED_MODULE_0__app_settings__["a" /* AppSettings */].MAXLENGTH_TITLE);
             //console.log(trimmedString);
             if (trimmedString.length < 55) {
                 titleEnd = trimmedString.length;
@@ -498,7 +505,10 @@ var GridItem = (function () {
                 titleEnd = Math.min(trimmedString.length, trimmedString.lastIndexOf(" "));
             }
             this.title = trimmedString.substr(0, titleEnd + 1);
-            this.message = message.substr(titleEnd + 1);
+            if (message.substr(titleEnd + 1).length > __WEBPACK_IMPORTED_MODULE_0__app_settings__["a" /* AppSettings */].MAXLENGTH_MSG)
+                this.message = message.substr(titleEnd + 1, __WEBPACK_IMPORTED_MODULE_0__app_settings__["a" /* AppSettings */].MAXLENGTH_MSG) + "... Läs mer på " + this.type + ".";
+            else
+                this.message = message.substr(titleEnd + 1);
         }
     };
     return GridItem;
@@ -552,7 +562,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat:light|Droid+Serif);", ""]);
 
 // module
-exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 1px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n  margin: 0 auto;\r\n  height: 120vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n}\r\n#qr-item{\r\n  background-color: white;\r\n  color: black;\r\n  font-size: x-large;\r\n  text-align: center;\r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                         /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n\r\n}\r\n.item {   \r\n  width: 400px;                           /*bestämmer bredden på varje kolmun och därmed hur många kolumner*/\r\n  margin: 4px;\r\n  padding: 20px;                          /*bestäm utefter hur bred sidan är*/\r\n  font-family: 'Montserrat', sans-serif;\r\n  font-size: medium;\r\n  color: white;\r\n}\r\nh3{\r\n  text-transform: uppercase;\r\n}\r\n.photo-item{\r\n    max-width: 100%;\r\n}\r\n.video-item{\r\n  max-width: 100%\r\n}\r\n\r\n\r\n\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
+exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n \r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  height: 100vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n  overflow: hidden;\r\n  \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n\r\n  /* justify-content: center; */\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */\r\n\r\n          \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 10px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n\r\n\r\n  margin: 10px 0 2px 2px;\r\n}\r\n.tags{\r\n  \r\n  display: inline;\r\n  font-size: 0.6rem;\r\n\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n\r\n}\r\n.video-item{\r\n  max-width: 100%;\r\n  \r\n}\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
 
 // exports
 
@@ -565,7 +575,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/grid/grid.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n\n  <div id=\"qr-item\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    <h3>Gör ett inlägg!</h3>\n  </div>\n\n  <div class=\"item\" *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\">\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\" autoplay=\"\" loop=\"\" muted=\"\" *ngIf=\"gItem.videoUrl\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>\n    <p [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
+module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n\n  <div id=\"qr-item\" class=\"item\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    <h3>Gör ett inlägg!</h3>\n  </div>\n\n  <div class=\"item\" *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\">\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">\n    <img class=\"photo-item\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\" src=\"assets/logo.PNG\">\n    <!-- temporär-->\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\" autoplay=\"\" loop=\"\" muted=\"\" *ngIf=\"gItem.videoUrl  && (gItem.videoUrl.indexOf('vimeo') == -1)\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 class=\"title\" [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>\n    <p class=\"message\" [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n    <div class=\"tag-container\" *ngIf=\"gItem.tags\">\n      <p class=\"tags\" [style.color]=\"gItem.color[3]\" *ngFor=\"let tag of gItem.tags\">\n        {{tag}}</p>\n    </div>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
 
 /***/ }),
 
@@ -620,6 +630,7 @@ var GridComponent = (function () {
         //console.log("afterviewchecked");
     };
     GridComponent.prototype.getGridItems = function () {
+        //Observable.interval(15000).switchMap(()=>
         var _this = this;
         __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["Observable"].forkJoin(this.cnctrService.getItems(), this.fbService.getItems(), this.instaService.getItems())
             .subscribe(function (res) {

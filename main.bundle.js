@@ -211,6 +211,7 @@ var ConnectrService = (function () {
             .catch(this.handleError);
     };
     ConnectrService.prototype.extractData = function (res) {
+        console.log(res);
         var body = res.json(); //parses the response data to json
         return body || {};
     };
@@ -233,7 +234,9 @@ var ConnectrService = (function () {
         gridItem.type = 'Connectr';
         gridItem.date = new Date(cnctrMsg.createdDate);
         gridItem.tags = cnctrMsg.tags.split(','); //comma separated tags to array
-        gridItem.createTitle(cnctrMsg.title);
+        gridItem.title = cnctrMsg.title;
+        gridItem.message = cnctrMsg.message;
+        console.log(cnctrMsg.message);
         if (cnctrMsg.urls[0] != null) {
             if (cnctrMsg.urls[0].indexOf('.jpg') >= 0
                 || cnctrMsg.urls[0].indexOf('.JPG') >= 0
@@ -448,25 +451,25 @@ var GridItem = (function () {
             ['#FFFFFF', '#000000', '#000000', '#808080'],
         ];
         //medelstarka färger
-        /*['#946B78', '#FFA780', '#fffff'], //vinröd
-          ['#587399', '#87EBE2', '#fffff'],      //mörkblå
-          ['#00615D', '#80F5B3', '#fffff'],     //blågrön
-          ['#9065A2', '#FF9ADB', '#fffff'],       //lila
-          ['#FFFFFF', '#000000', '#000000'],       //vit
+        /*['#946B78', '#FFA780', '#fffff'],         //vinröd
+          ['#587399', '#87EBE2', '#fffff'],         //mörkblå
+          ['#00615D', '#80F5B3', '#fffff'],         //blågrön
+          ['#9065A2', '#FF9ADB', '#fffff'],         //lila
+          ['#FFFFFF', '#000000', '#000000'],        //vit
           ];*/
         //svaga färger
-        /*  ['#B2959E', '#FFA780', '#fffff'], //vinröd
-            ['#587399', '#87EBE2', '#fffff'],      //mörkblå
-            ['#4D908D', '#80F5B3', '#fffff'],     //blågrön
+        /*  ['#B2959E', '#FFA780', '#fffff'],       //vinröd
+            ['#587399', '#87EBE2', '#fffff'],       //mörkblå
+            ['#4D908D', '#80F5B3', '#fffff'],       //blågrön
             ['#CFBDD7', '#FF9ADB', '#fffff'],       //lila
-            ['#FFFFFF', '#000000', '#000000'],       //vit
+            ['#FFFFFF', '#000000', '#000000'],      //vit
         ];*/
         //svagare färger
-        /*['#d1c0c5', '#ffcab3', '#fffff'], //vinröd
-          ['#b8c3d3', '#b7f3ed', '#fffff'],      //mörkblå
-          ['#b3cfce', '#b3f9d1', '#fffff'],     //blågrön
-          ['#cfbdd7', '#ffc3e9', '#fffff'],       //lila
-          ['#FFFFFF', '#000000', '#000000'],       //vit
+        /*['#d1c0c5', '#ffcab3', '#fffff'],         //vinröd
+          ['#b8c3d3', '#b7f3ed', '#fffff'],         //mörkblå
+          ['#b3cfce', '#b3f9d1', '#fffff'],         //blågrön
+          ['#cfbdd7', '#ffc3e9', '#fffff'],         //lila
+          ['#FFFFFF', '#000000', '#000000'],        //vit
           ];*/
         var numberOfColors = selectColor.length;
         this.color = selectColor[Math.floor(Math.random() * numberOfColors)];
@@ -562,7 +565,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat:light|Droid+Serif);", ""]);
 
 // module
-exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n \r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  height: 100vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n  overflow: hidden;\r\n  \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n\r\n  /* justify-content: center; */\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */\r\n\r\n          \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 10px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n\r\n\r\n  margin: 10px 0 2px 2px;\r\n}\r\n.tags{\r\n  \r\n  display: inline;\r\n  font-size: 0.6rem;\r\n\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n\r\n}\r\n.video-item{\r\n  max-width: 100%;\r\n  \r\n}\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
+exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n  /*border: 2px solid #CCCCCC;*/\r\n  max-width: 100vw;\r\n \r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  height: 100vh;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n  overflow: hidden;\r\n  \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n  -webkit-box-flex: 1;\r\n      -ms-flex: 1;\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n  position: relative;\r\n\r\n  /* justify-content: center; */\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */\r\n\r\n          \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 10px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n  bottom: 0;\r\n  right: 0;\r\n  position: absolute;     /* föräldern måste ha position: relative;*/\r\n\r\n  \r\n  margin: 10px 3px 3px 3px;\r\n}\r\n.tags{\r\n\r\n  display: inline;\r\n \r\n  font-size: 0.6rem;\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n\r\n}\r\n.video-item{\r\n  max-width: 100%;\r\n  \r\n}\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
 
 // exports
 

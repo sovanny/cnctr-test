@@ -1,0 +1,100 @@
+{
+    "title": "Testar azure cognitive services ✨",
+    "message": "",
+    "tags": "Azure,sommar",
+    "id": "96e814df-0b51-4159-b796-e6adb77312cc",
+    "createdDate": "2017-08-08T09:13:13.5159829",
+    "imgOrientation": 8,
+    "emotions": [
+        {
+            "faceRectangle": {
+                "left": 246,
+                "top": 480,
+                "width": 730,
+                "height": 730
+            },
+            "scores": {
+                "anger": 8.682543E-05,
+                "contempt": 0.020731926,
+                "disgust": 2.99682579E-05,
+                "fear": 2.50709445E-06,
+                "happiness": 0.0650503039,
+                "neutral": 0.9131566,
+                "sadness": 0.000859631633,
+                "surprise": 8.22296E-05
+            }
+        }
+    ],
+    "visualFeatures": {
+        "requestId": "4cb23d42-fe3d-4ad0-9f52-99d6f862d6c4",
+        "metadata": {
+            "height": 1458,
+            "width": 2592,
+            "format": "Jpeg"
+        },
+        "imageType": null,
+        "color": null,
+        "adult": {
+            "isAdultContent": false,
+            "isRacyContent": false,
+            "adultScore": 0.083648703992366791,
+            "racyScore": 0.050822343677282333
+        },
+        "categories": null,
+        "faces": null,
+        "tags": [
+            {
+                "name": "person",
+                "confidence": 0.999864935874939,
+                "hint": null
+            },
+            {
+                "name": "indoor",
+                "confidence": 0.948103129863739,
+                "hint": null
+            }
+        ],
+        "description": {
+            "tags": [
+                "person",
+                "indoor",
+                "woman",
+                "glasses",
+                "holding",
+                "young",
+                "food",
+                "shirt",
+                "eating",
+                "girl",
+                "sitting",
+                "looking",
+                "table",
+                "wearing",
+                "front",
+                "camera",
+                "donut",
+                "smiling",
+                "posing",
+                "restaurant",
+                "close",
+                "man",
+                "standing",
+                "sandwich",
+                "plate",
+                "phone",
+                "white",
+                "pizza",
+                "room"
+            ],
+            "captions": [
+                {
+                    "text": "a close up of a woman in glasses looking at the camera",
+                    "confidence": 0.82920572861402853
+                }
+            ]
+        }
+    },
+    "urls": [
+        "https://gaialabconnectr.blob.core.windows.net/uploads/79f7f511-f2ba-4f10-973d-2dfae8705825.JPG"
+    ]
+}

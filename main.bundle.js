@@ -116,7 +116,6 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__grid_grid_component__ = __webpack_require__("../../../../../src/app/grid/grid.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__grid_item_window_ref_service__ = __webpack_require__("../../../../../src/app/grid-item/window-ref.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -124,7 +123,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -150,7 +148,6 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* JsonpModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_7__grid_item_window_ref_service__["a" /* WindowRefService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -205,13 +202,13 @@ var ConnectrService = (function () {
                 var entry = items_1[_i];
                 cnctrGridItems.push(_this.formatCrItem(entry));
             }
-            console.log(cnctrGridItems);
+            //console.log(cnctrGridItems);
             return cnctrGridItems; //return grid-items (observable)
         })
             .catch(this.handleError);
     };
     ConnectrService.prototype.extractData = function (res) {
-        console.log(res);
+        //console.log(res);
         var body = res.json(); //parses the response data to json
         return body || {};
     };
@@ -237,21 +234,19 @@ var ConnectrService = (function () {
         gridItem.title = cnctrMsg.title;
         gridItem.message = cnctrMsg.message;
         gridItem.imgOrientation = cnctrMsg.imgOrientation;
-        console.log(gridItem.imgOrientation);
+        gridItem.emotions = cnctrMsg.emotions;
+        gridItem.visualFeatures = cnctrMsg.visualFeatures;
+        gridItem.prominentEmotions = cnctrMsg.prominentEmotions;
+        // if(gridItem.prominentEmotions != null)
+        //   console.log(gridItem.prominentEmotions);
         if (cnctrMsg.urls[0] != null) {
             if (cnctrMsg.urls[0].indexOf('.jpg') >= 0
                 || cnctrMsg.urls[0].indexOf('.JPG') >= 0
                 || cnctrMsg.urls[0].indexOf('.png') >= 0
-                || cnctrMsg.urls[0].indexOf('.PNG') >= 0) {
+                || cnctrMsg.urls[0].indexOf('.PNG') >= 0
+                || cnctrMsg.urls[0].indexOf('.gif') >= 0
+                || cnctrMsg.urls[0].indexOf('.GIF') >= 0) {
                 gridItem.photoUrl = cnctrMsg.urls[0];
-                // (<any>window).loadImage(gridItem.photoUrl, function (data) {     //funkar tydligen ej med URLer..
-                //   console.log(data);
-                //   var orientation = 0;
-                //   if (data.exif) {
-                //     orientation = data.exif.get('Orientation');
-                //     console.log(orientation);
-                //   };
-                // });
             }
             else
                 gridItem.videoUrl = cnctrMsg.urls[0];
@@ -261,7 +256,7 @@ var ConnectrService = (function () {
     return ConnectrService;
 }());
 ConnectrService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
 ], ConnectrService);
 
@@ -388,7 +383,7 @@ var FbService = (function () {
     return FbService;
 }());
 FbService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
 ], FbService);
 
@@ -402,7 +397,6 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__window_ref_service__ = __webpack_require__("../../../../../src/app/grid-item/window-ref.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GridItemService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -410,33 +404,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
 
 var GridItemService = (function () {
-    function GridItemService(windowRef) {
-        this._window = windowRef.nativeWindow;
+    function GridItemService() {
     }
-    GridItemService.prototype.setPadding = function () {
-        var height = this._window.screen.height;
-        var width = this._window.screen.width;
-        var itemsIncolumn = [];
-        var inColumn = true;
-        while (inColumn) {
-            var offsetHeight = document.getElementById('grid-item').offsetHeight; //måste lägga till ett id
-            console.log(offsetHeight);
-        }
-    };
     return GridItemService;
 }());
 GridItemService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__window_ref_service__["a" /* WindowRefService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__window_ref_service__["a" /* WindowRefService */]) === "function" && _a || Object])
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])()
 ], GridItemService);
 
-var _a;
 //# sourceMappingURL=grid-item.service.js.map
 
 /***/ }),
@@ -531,42 +508,6 @@ var GridItem = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/grid-item/window-ref.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WindowRefService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-function getWindow() {
-    return window;
-}
-var WindowRefService = (function () {
-    function WindowRefService() {
-    }
-    Object.defineProperty(WindowRefService.prototype, "nativeWindow", {
-        get: function () {
-            return getWindow();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return WindowRefService;
-}());
-WindowRefService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])()
-], WindowRefService);
-
-//# sourceMappingURL=window-ref.service.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/grid/grid.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -575,7 +516,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat:light|Droid+Serif);", ""]);
 
 // module
-exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n   max-width: 100vw; \r\n   position: fixed; \r\n  top: 0;\r\n  left: 0;\r\n   height: 100vh; \r\n  display: -webkit-box; \r\n  display: -ms-flexbox; \r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n   overflow: hidden;   \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n\r\n  -webkit-box-flex: 1;\r\n\r\n      -ms-flex: 1;\r\n\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n  position: relative;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */        \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n@media (orientation: portrait) {\r\n    .item{\r\n      width: 25%; /*om skärmen är avlång, visa 4 kolumner*/\r\n      /*width: 20%;*/ /*om skärmen är avlång, visa 5 kolumner*/\r\n    }\r\n    \r\n  }\r\n@media only screen and (max-width: 768px) {\r\n    .item{\r\n      width: 100%;\r\n      \r\n    }\r\n    .container{\r\n       overflow: visible;\r\n       height: 100%;\r\n       position: static;\r\n    }\r\n    \r\n  }\r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n  bottom: 0;\r\n  right: 0;\r\n  position: absolute;     /* föräldern måste ha position: relative;*/\r\n\r\n  \r\n  margin: 10px 3px 3px 3px;\r\n}\r\n.tags{\r\n\r\n  display: inline;\r\n \r\n  font-size: 0.6rem;\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n  image-orientation: from-image; /*Only works in firefox*/\r\n}\r\n.video-item{\r\n  max-width: 100%}\r\n\r\n.rotate6{\r\n  -webkit-transform: rotate(90deg);\r\n          transform: rotate(90deg);\r\n}\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
+exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n   max-width: 100vw; \r\n   position: fixed; \r\n  top: 0;\r\n  left: 0;\r\n   height: 100vh; \r\n  display: -webkit-box; \r\n  display: -ms-flexbox; \r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n   overflow: hidden;   \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n\r\n  -webkit-box-flex: 1;\r\n\r\n      -ms-flex: 1;\r\n\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n  position: relative;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */        \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n@media (orientation: portrait) {\r\n    .item{\r\n      width: 25%; /*om skärmen är avlång, visa 4 kolumner*/\r\n      /*width: 20%;*/ /*om skärmen är avlång, visa 5 kolumner*/\r\n    }\r\n    \r\n  }\r\n@media only screen and (max-width: 768px) {\r\n    .item{\r\n      width: 100%;\r\n      \r\n    }\r\n    .container{\r\n       overflow: visible;\r\n       height: 100%;\r\n       position: static;\r\n    }\r\n    \r\n  }\r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.azure-caption{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.azure-emotion{\r\n   font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n  bottom: 0;\r\n  right: 0;\r\n  position: absolute;     /* föräldern måste ha position: relative;*/\r\n\r\n  \r\n  margin: 10px 3px 3px 3px;\r\n}\r\n.tags{\r\n\r\n  display: inline;\r\n \r\n  font-size: 0.6rem;\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n  image-orientation: from-image; /*Only works in firefox*/\r\n}\r\n.video-item{\r\n  max-width: 100%}\r\n\r\n.rotate6{\r\n  -webkit-transform: rotate(90deg);\r\n          transform: rotate(90deg);\r\n}\r\n\r\n\r\n\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
 
 // exports
 
@@ -588,7 +529,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/grid/grid.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n \n   <div id=\"qr-item\" class=\"item\">\n     <a href=\"http://gaialab-connectr-api.azurewebsites.net/\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    </a>\n    <h3>Gör ett inlägg!</h3>\n  </div> \n\n  <div class=\"item\"  *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\" [attr.data-date]=\"gItem.date\">\n    <!--<img class=\"photo-item rotate6\" *ngIf=\"gItem.photoUrl && gItem.imgOrientation\" [src]=\"gItem.photoUrl\" > -->\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">  <!--   && !gItem.imgOrientation -->\n    <img class=\"photo-item\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\" src=\"assets/logo.PNG\">\n    <!-- temporär-->\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\"  autoplay loop muted onloadedmetadata=\"this.muted = true\" *ngIf=\"gItem.videoUrl  && (gItem.videoUrl.indexOf('vimeo') == -1)\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 class=\"title\" [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>    \n    <p class=\"message\" [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n    <div class=\"tag-container\" *ngIf=\"gItem.tags\">\n      <p class=\"tags\" [style.color]=\"gItem.color[3]\" *ngFor=\"let tag of gItem.tags\">\n        {{tag}}</p>\n    </div>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
+module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n \n   <div id=\"qr-item\" class=\"item\">\n     <a href=\"http://gaialab-connectr-api.azurewebsites.net/\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    </a>\n    <h3>Gör ett inlägg!</h3>\n  </div> \n\n  <div class=\"item\"  *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\" [attr.data-date]=\"gItem.date\">\n    <!--<img class=\"photo-item rotate6\" *ngIf=\"gItem.photoUrl && gItem.imgOrientation\" [src]=\"gItem.photoUrl\" > -->\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">  <!--   && !gItem.imgOrientation -->\n    <img class=\"photo-item\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\" src=\"assets/logo.PNG\">\n    <!-- temporär-->\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\"  autoplay loop muted onloadedmetadata=\"this.muted = true\" *ngIf=\"gItem.videoUrl  && (gItem.videoUrl.indexOf('vimeo') == -1)\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 class=\"title\" [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>    \n    <p class=\"message\" *ngIf=\"gItem.message\" [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n    <p class=\"azure-caption\" *ngIf=\"gItem.visualFeatures\" [style.color]=\"gItem.color[2]\">Azure beskriver detta som: {{gItem.visualFeatures.description.captions[0].text}}</p>\n    <p class=\"azure-emotion\" *ngIf=\"gItem.emotions\" [style.color]=\"gItem.color[2]\">och beskriver känslan som: {{gItem.prominentEmotions[0]}}<p>\n    <div class=\"tag-container\" *ngIf=\"gItem.tags\">\n      <p class=\"tags\" [style.color]=\"gItem.color[3]\" *ngFor=\"let tag of gItem.tags\">\n        {{tag}}</p>\n    </div>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
 
 /***/ }),
 
@@ -793,7 +734,7 @@ var InstaService = (function () {
     return InstaService;
 }());
 InstaService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Injectable */])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Jsonp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* Jsonp */]) === "function" && _a || Object])
 ], InstaService);
 

@@ -34,11 +34,11 @@ AppSettings.INSTA_SECRET = '09c69c47c89f4f59bd4540fe8a925ecd';
 AppSettings.INSTA_TOKEN = '244708219.8c4b1ae.f289fe48ff4442da954949b123a1160a'; //Genererad med instagramtoken.com
 AppSettings.INSTA_API = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' + AppSettings.INSTA_TOKEN;
 //Facebook
-AppSettings.FB_APP_ID = '1313615112020840';
-AppSettings.FB_APP_SECRET = '759c96192fc551ab2ec64e1cd7b3d5b1';
-//Går att generera med https://developers.facebook.com/tools/debug/accesstoken/ och räcker i 60 dagar.
+AppSettings.FB_APP_ID = '1507203142671009';
+AppSettings.FB_APP_SECRET = 'b41631ad76734dbdaa1ff7f369f8ae7e';
+//Går att generera med https://developers.facebook.com/tools/accesstoken/ och räcker i 60 dagar.
 // En metod för att hämta access tokens behövs
-AppSettings.FB_TOKEN = 'EAASqudofo2gBANcgR2IhVgf83Qsn5O5xCM4SZCdnmJ0wujnuBL3BNnsNtv4HdY01EVfHzJJHsdzPBQ9wO31yXlHnMvWMaSer5TA5pSwehCDuGW4UYuEsB8e4UNX4VTFkuVAqlYOtkxs0EZBNcjtQRyzSa12ob5DhHfNygD4QZDZD';
+AppSettings.FB_TOKEN = 'EAAVayxPsWqEBAPgysjIYW7cYMFXW2ZBEYmO1LNu5D4hOnZB2HuvokVroA78UwUZBVcSJPqLJyi2huNZAAMZB9dJlxZA0XMlLnFIDCcqHdD4EOKWmnF87AUZC5Y9RmMqicoFfXZCTZBTkiJZCP1QyCZBSbZBYrdIc7MsZBOS8zZAAMg7E4l5gZDZD';
 AppSettings.FB_FIELDS = 'created_time,message,link,caption,description,name,place,source,status_type,type,object_id';
 //Hämtar från https://www.facebook.com/gaiadigital/
 AppSettings.FB_API = 'https://graph.facebook.com/v2.9/168933561226/posts?fields='
@@ -516,7 +516,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300|Montserrat:light|Droid+Serif);", ""]);
 
 // module
-exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n   max-width: 100vw; \r\n   position: fixed; \r\n  top: 0;\r\n  left: 0;\r\n   height: 100vh; \r\n  display: -webkit-box; \r\n  display: -ms-flexbox; \r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n   overflow: hidden;   \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n\r\n  -webkit-box-flex: 1;\r\n\r\n      -ms-flex: 1;\r\n\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n  position: relative;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */        \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n@media (orientation: portrait) {\r\n    .item{\r\n      width: 25%; /*om skärmen är avlång, visa 4 kolumner*/\r\n      /*width: 20%;*/ /*om skärmen är avlång, visa 5 kolumner*/\r\n    }\r\n    \r\n  }\r\n@media only screen and (max-width: 768px) {\r\n    .item{\r\n      width: 100%;\r\n      \r\n    }\r\n    .container{\r\n       overflow: visible;\r\n       height: 100%;\r\n       position: static;\r\n    }\r\n    \r\n  }\r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.azure-caption{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.azure-emotion{\r\n   font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n  bottom: 0;\r\n  right: 0;\r\n  position: absolute;     /* föräldern måste ha position: relative;*/\r\n\r\n  \r\n  margin: 10px 3px 3px 3px;\r\n}\r\n.tags{\r\n\r\n  display: inline;\r\n \r\n  font-size: 0.6rem;\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n  image-orientation: from-image; /*Only works in firefox*/\r\n}\r\n.video-item{\r\n  max-width: 100%}\r\n\r\n.rotate6{\r\n  -webkit-transform: rotate(90deg);\r\n          transform: rotate(90deg);\r\n}\r\n\r\n\r\n\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
+exports.push([module.i, "* {\r\n  box-sizing: border-box;\r\n}\r\nhtml{\r\n  background-color: #F4F4F4;\r\n}\r\n\r\n.container {\r\n  background-color: #F4F4F4;\r\n  padding: 3px;\r\n   max-width: 100vw; \r\n   position: fixed; \r\n  top: 0;\r\n  left: 0;\r\n   height: 100vh; \r\n  display: -webkit-box; \r\n  display: -ms-flexbox; \r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;   /* Kan ersättas med flex-flow: column wrap;  */\r\n  -ms-flex-wrap: wrap;\r\n      flex-wrap: wrap;          /* Kan ersättas med flex-flow: column wrap;  */\r\n  -webkit-box-pack: start;\r\n      -ms-flex-pack: start;\r\n          justify-content: flex-start;\r\n  -webkit-box-align: start;\r\n      -ms-flex-align: start;\r\n          align-items: flex-start;\r\n   overflow: hidden;   \r\n}\r\n#qr-item{\r\n  font-size: medium;\r\n  text-align: center;\r\n  color: black;\r\n}\r\n.item {\r\n\r\n  -webkit-box-flex: 1;\r\n\r\n      -ms-flex: 1;\r\n\r\n          flex: 1;\r\n  padding: 15px 10px 0 10px;\r\n  position: relative;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -ms-flex-negative: 1;\r\n      flex-shrink: 1;\r\n  -ms-flex-preferred-size: auto;\r\n      flex-basis: auto;\r\n  border: 3px solid #F4F4F4;\r\n  box-sizing: border-box;\r\n  width: 12.5%;                           /* bestämmer bredden på varje kolmun och därmed hur många kolumner */        \r\n  font-family: 'Montserrat', sans-serif;\r\n  background-color: white;          /*skrivs över sen*/\r\n  color: white;                     /*skrivs ev. över sen*/\r\n\r\n  /* -webkit-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  -moz-box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);\r\n  box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.75);*/ /*blir fult eftersom border används som kant, kanske hadfe varit snyggt annars, testa senare*/\r\n} \r\n@media (orientation: portrait) {\r\n    .item{\r\n      width: 25%; /*om skärmen är avlång, visa 4 kolumner*/\r\n      /*width: 20%;*/ /*om skärmen är avlång, visa 5 kolumner*/\r\n    }\r\n    \r\n  }\r\n@media only screen and (max-width: 768px) {\r\n    .item{\r\n      width: 100%;\r\n      \r\n    }\r\n    .container{\r\n       overflow: visible;\r\n       height: 100%;\r\n       position: static;\r\n    }\r\n    \r\n  }\r\n\r\n.project-name{\r\n  font-size: 0.65rem;\r\n  text-transform: uppercase;\r\n  margin: 0 0 1px 0;\r\n}  \r\n.title{\r\n  text-transform: uppercase;\r\n  font-size: 0.8rem;\r\n  margin: 14px 5px 5px 5px;\r\n}\r\n.message{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.azure-caption{\r\n  font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.azure-emotion{\r\n   font-size: 0.7rem;\r\n  margin: 0 5px 15px 5px;\r\n}\r\n.tag-container{\r\n/*hur får jag texten till nedre högra hörnet på diven??*/\r\n  bottom: 0;\r\n  right: 0;\r\n  position: absolute;     /* föräldern måste ha position: relative;*/\r\n\r\n  \r\n  margin: 10px 3px 3px 3px;\r\n}\r\n.tags{\r\n\r\n  display: inline;\r\n \r\n  font-size: 0.6rem;\r\n}\r\n\r\n.photo-item{\r\n  max-width: 100%;\r\n  image-orientation: from-image; /*Only works in firefox*/\r\n}\r\n.video-item{\r\n  max-width: 100%}\r\n\r\n.rotate6{\r\n  -webkit-transform: rotate(90deg);\r\n          transform: rotate(90deg);\r\n}\r\n\r\n\r\n\r\n\r\n.mockup-item{\r\n    height: 150px;\r\n    background-color: #60237b;\r\n}\r\n.mockup-item:nth-child(2) {\r\n  background-color: #0FD8C5;\r\n  height: 250px;\r\n}\r\n.mockup-item:nth-child(3) {\r\n  height: 190px;\r\n}\r\n.mockup-item:nth-child(4) {\r\n  background-color: #11376E;\r\n  height: 220px;\r\n}\r\n.mockup-item:nth-child(5) {\r\n  background-color: #0FD8C5;\r\n  height: 300px;\r\n}\r\n\r\n.mockup-item:nth-child(6) {\r\n  background-color: #0FD8C5;\r\n  height: 400px;\r\n}\r\n.mockup-item:nth-child(7) {\r\n  background-color: #11376E;\r\n  height: 150px;\r\n}\r\n.mockup-item:nth-child(8) {\r\n  background-color: #11376E;\r\n  height: 300px;\r\n}", ""]);
 
 // exports
 
@@ -529,7 +529,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/grid/grid.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n \n   <div id=\"qr-item\" class=\"item\">\n     <a href=\"http://gaialab-connectr-api.azurewebsites.net/\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    </a>\n    <h3>Gör ett inlägg!</h3>\n  </div> \n\n  <div class=\"item\"  *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\" [attr.data-date]=\"gItem.date\">\n    <!--<img class=\"photo-item rotate6\" *ngIf=\"gItem.photoUrl && gItem.imgOrientation\" [src]=\"gItem.photoUrl\" > -->\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">  <!--   && !gItem.imgOrientation -->\n    <img class=\"photo-item\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\" src=\"assets/logo.PNG\">\n    <!-- temporär-->\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\"  autoplay loop muted onloadedmetadata=\"this.muted = true\" *ngIf=\"gItem.videoUrl  && (gItem.videoUrl.indexOf('vimeo') == -1)\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 class=\"title\" [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>    \n    <p class=\"message\" *ngIf=\"gItem.message\" [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n    <p class=\"azure-caption\" *ngIf=\"gItem.visualFeatures\" [style.color]=\"gItem.color[2]\">Azure beskriver detta som: {{gItem.visualFeatures.description.captions[0].text}}</p>\n    <p class=\"azure-emotion\" *ngIf=\"gItem.emotions\" [style.color]=\"gItem.color[2]\">och beskriver känslan som: {{gItem.prominentEmotions[0]}}<p>\n    <div class=\"tag-container\" *ngIf=\"gItem.tags\">\n      <p class=\"tags\" [style.color]=\"gItem.color[3]\" *ngFor=\"let tag of gItem.tags\">\n        {{tag}}</p>\n    </div>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
+module.exports = "<div class=\"container\" [@gridAnimation]=\"gItemsCurrent.length\" #mainScreen>\n \n   <div id=\"qr-item\" class=\"item\">\n     <a href=\"http://gaialab-connectr-api.azurewebsites.net/\">\n    <img class=\"photo-item\" src=\"assets/qrcode.png\">\n    </a>\n    <h3>Gör ett inlägg!</h3>\n  </div> \n\n  <div class=\"item\"  *ngFor=\"let gItem of gItemsCurrent\" [style.background-color]=\"gItem.color[0]\" [attr.data-date]=\"gItem.date\">\n    <p *ngIf=\"gItem.project\" class=\"project-name\" [style.color]=\"gItem.color[3]\" >{{gItem.project}}</p>\n    <!--<img class=\"photo-item rotate6\" *ngIf=\"gItem.photoUrl && gItem.imgOrientation\" [src]=\"gItem.photoUrl\" > -->\n    <img class=\"photo-item\" *ngIf=\"gItem.photoUrl\" [src]=\"gItem.photoUrl\">  <!--   && !gItem.imgOrientation -->\n    <img class=\"photo-item\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\" src=\"assets/logo.PNG\">\n    <!-- temporär-->\n    <!-- <iframe id=\"player1\" *ngIf=\"gItem.videoUrl && (gItem.videoUrl.indexOf('vimeo') !== -1)\"\n      [src]=\"gItem.videoUrl\" frameborder=\"0\">\n    </iframe> funkar ej pga säkerhetsskäl, se länk https://angular.io/guide/security#xss -->\n    <video class=\"video-item\"  autoplay loop muted onloadedmetadata=\"this.muted = true\" *ngIf=\"gItem.videoUrl  && (gItem.videoUrl.indexOf('vimeo') == -1)\">\n      <source [src]=\"gItem.videoUrl\" type=\"video/mp4\">\n    </video>\n    <h3 class=\"title\" [style.color]=\"gItem.color[1]\">{{gItem.title}}</h3>    \n    <p class=\"message\" *ngIf=\"gItem.message\" [style.color]=\"gItem.color[2]\">{{gItem.message}}</p>\n    <p class=\"azure-caption\" *ngIf=\"gItem.visualFeatures\" [style.color]=\"gItem.color[2]\">Azure beskriver detta som: {{gItem.visualFeatures.description.captions[0].text}}</p>\n    <p class=\"azure-emotion\" *ngIf=\"gItem.emotions\" [style.color]=\"gItem.color[2]\">och beskriver känslan som: \n      <span *ngFor=\"let prominentEmotion of gItem.prominentEmotions\">{{prominentEmotion}} </span><p>\n    <div class=\"tag-container\" *ngIf=\"gItem.tags\">\n      <p class=\"tags\" [style.color]=\"gItem.color[3]\" *ngFor=\"let tag of gItem.tags\">\n        {{tag}}</p>\n    </div>\n  </div>\n\n  <!--<div class=\"item mockup-item\">Mockup-item</div>-->\n</div>"
 
 /***/ }),
 
@@ -576,8 +576,9 @@ var GridComponent = (function () {
     }
     GridComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var timer = __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__["Observable"].timer(2000, 15000); //kolla efter ny data var 15:e sekund
-        timer.subscribe(function () { return _this.getGridItems(); });
+        var connectrTimer = __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__["Observable"].timer(2000, 60000); //kolla efter ny data var 60:e sekund
+        connectrTimer.subscribe(function () { return _this.getGridItems(); });
+        // timer.subscribe(() => this.getCnctrItems());
     };
     GridComponent.prototype.ngAfterViewInit = function () {
         //console.log("afterViewInit");
@@ -586,7 +587,6 @@ var GridComponent = (function () {
         //console.log("afterviewchecked");
     };
     GridComponent.prototype.getGridItems = function () {
-        //Observable.interval(15000).switchMap(()=>
         var _this = this;
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Rx__["Observable"].forkJoin(this.cnctrService.getItems(), this.fbService.getItems(), this.instaService.getItems())
             .subscribe(function (res) {
@@ -629,8 +629,8 @@ GridComponent = __decorate([
                         //   animate('0.5s', style({transform: 'translateY(0%)'}))
                         // ])
                         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["h" /* style */])({ transform: 'rotateX(-90deg)' }),
-                        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["l" /* stagger */])(300, [
-                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["m" /* animate */])('0.5s', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["h" /* style */])({ transform: 'rotateX(0deg)' }))
+                        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["l" /* stagger */])(150, [
+                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["m" /* animate */])('0.3s', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__angular_animations__["h" /* style */])({ transform: 'rotateX(0deg)' }))
                         ])
                     ], { optional: true })
                 ])
@@ -642,6 +642,33 @@ GridComponent = __decorate([
 ], GridComponent);
 
 var _a, _b, _c, _d;
+//  getFacebookItems() {
+//     return this.fbService.getItems().subscribe( res => {
+//       this.gItemsCurrent = this.gItemsCurrent.filter((item) => {
+//         return item.type != "Facebook";
+//       });
+//       res.forEach(item => {
+//         item.setRandomColor();
+//         this.gItemsCurrent.push(item);  
+//       });
+//       this.gItemsCurrent.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+//       return this.gItemsCurrent;
+//     }, err => {
+//     });
+//  }
+//  getCnctrItems() {
+//     return this.cnctrService.getItems().subscribe( res => {
+//       this.gItemsCurrent = this.gItemsCurrent.filter((item) => {
+//         return item.type != "Connectr";
+//       });
+//       res.forEach(item => {
+//         item.setRandomColor();
+//         this.gItemsCurrent.push(item);          
+//       });
+//       this.gItemsCurrent.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+//       return this.gItemsCurrent;
+//     }, err => {
+//     });
 //# sourceMappingURL=grid.component.js.map
 
 /***/ }),

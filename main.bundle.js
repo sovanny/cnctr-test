@@ -237,6 +237,7 @@ var ConnectrService = (function () {
         gridItem.emotions = cnctrMsg.emotions;
         gridItem.visualFeatures = cnctrMsg.visualFeatures;
         gridItem.prominentEmotions = cnctrMsg.prominentEmotions;
+        gridItem.project = cnctrMsg.project;
         // if(gridItem.prominentEmotions != null)
         //   console.log(gridItem.prominentEmotions);
         if (cnctrMsg.urls[0] != null) {
